@@ -1,15 +1,7 @@
 language: bash
 
-
-env:
-  matrix:
-  - ALPINE_VER=3.11.2 TAGS=3.11,3,latest
-
 script:
 - make build_tar_gz
-
-# after_success:
-# - . "${TRAVIS_BUILD_DIR}/release.sh"
 
     
 notifications:
