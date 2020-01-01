@@ -1,0 +1,41 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<slave>
+  <name>NODE_HOST_TEMPLATE</name>
+  <description></description>
+  <remoteFS>.</remoteFS>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.26">
+    <host>NODE_HOST_TEMPLATE</host>
+    <port>22</port>
+    <credentialsId>97aafea0-575e-45a9-ab31-c917d8ca99d4</credentialsId>
+    <maxNumRetries>0</maxNumRetries>
+    <retryWaitTime>0</retryWaitTime>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy"/>
+  </launcher>
+  <label></label>
+  <nodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>5</int>
+          <string>GOPATH</string>
+          <string>/apps/gopath</string>
+          <string>GOROOT</string>
+          <string>/apps/go</string>
+          <string>MAVENHOME</string>
+          <string>/apps/apache-maven-3.5.2</string>
+          <string>MAVENHOME_BIN</string>
+          <string>/apps/apache-maven-3.5.2/bin</string>
+          <string>PATH</string>
+          <string>/apps/apache-maven-3.5.2/bin:/apps/go/bin:$PATH</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </nodeProperties>
+</slave>

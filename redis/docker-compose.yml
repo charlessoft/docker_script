@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+  redis:
+    image: ${PRIVATE_REGISTRY}/official/redis:3.2.11
+    ports:
+      - 11080:6379
+    volumes:
+      - ${REDIS_DATA_DIR}:/data/db
+      #- ~/tmp/redis:/var/lib/redis
+      - ${PWD}/redis.conf:/usr/local/etc/redis/redis.conf
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:Y1ronginfo,local:redis:6379:1:Y1ronginfo
+      - HTTP_USER=${HTTP_USER}
+      - HTTP_PASSWORD=${HTTP_PASSWORD}
+    ports:
+      - "8081:8081"
+  

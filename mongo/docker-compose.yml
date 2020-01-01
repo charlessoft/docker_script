@@ -1,0 +1,34 @@
+version: '3.2'
+services:
+  mongo:
+    image: ${PRIVATE_REGISTRY}/official/mongo:3.0.15
+    container_name: mongo
+    ports:
+      - 11081:27017
+    volumes:
+      - ${MONGO_DATA_DIR}:/data/db
+      - ${PWD}/auth.js:/tmp/auth.js
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    command: "--smallfiles"
+
+  mongo-express:
+    image: ${PRIVATE_REGISTRY}/official/mongo-express:0.49
+    container_name: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+
+      # express login user and password
+      ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
+
+      # mongodb admin user and password
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}

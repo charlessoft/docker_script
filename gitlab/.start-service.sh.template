@@ -1,0 +1,28 @@
+#!/bin/bash
+
+docker run --restart=always \
+    --name gitlab-redis -d \
+    --volume $DOCKER_GITLAB_VOLUME/redis:/var/lib/redis \
+    sameersbn/redis:latest
+
+
+docker run --restart=always \
+    --name postgresql-gitlab -d \
+    --env 'DB_NAME=gitlabhq_production' \
+    --env 'DB_USER=gitlab' --env 'DB_PASS=password' \
+    --env 'DB_EXTENSION=pg_trgm' \
+    --publish 5431:5432 \
+    --env 'DB_PORT=5432' \
+    --volume $DOCKER_GITLAB_VOLUME/postgresql:/var/lib/postgresql \
+    sameersbn/postgresql:9.4-23
+
+docker run --restart=always \
+    --name gitlab -d \
+    --link postgresql-gitlab:postgresql --link gitlab-redis:redisio \
+    --publish 10023:22 --publish 10000:80 \
+    --env 'GITLAB_HOST=139.196.106.157' \
+    --env 'GITLAB_PORT=10000' --env 'GITLAB_SSH_PORT=10023' \
+    --env 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' \
+    --volume $DOCKER_GITLAB_VOLUME/gitlab:/home/git/data \
+    sameersbn/gitlab:8.10.0
+

@@ -1,0 +1,32 @@
+language: bash
+
+
+env:
+  matrix:
+  - ALPINE_VER=3.11.2 TAGS=3.11,3,latest
+
+script:
+- make build_tar_gz
+
+# after_success:
+# - . "${TRAVIS_BUILD_DIR}/release.sh"
+
+    
+notifications:
+  email:
+    recipients:
+    - charlessoft@qq.com
+    on_success: never
+    on_failure: always
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_TOKEN}
+  file_glob: true
+  file: ./**/*.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
+
+

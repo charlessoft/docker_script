@@ -1,0 +1,47 @@
+digraph G {
+
+    # gitlab
+  subgraph cluster_0 {
+    style=filled;
+    color=lightgrey;
+    node [style=filled,color=white];
+    gitlab;
+    label = "代码仓库";
+  }
+
+# jenkins
+  subgraph cluster_1 {
+    node [style=filled];
+    jenkins_master -> jenkins_salve [label="ssh-key互信" fontsize=8 ];
+    
+    label = "持续集成";
+    color=blue
+  }
+  
+  # release server
+  subgraph cluster_2 {
+    node [style=filled];
+    
+    jenkins_salve -> release_server [label="发布版本" fontsize=8 ];
+    label = "release server";
+    color=blue
+  }
+  
+  # notify
+  subgraph cluster_3 {
+    node [style=filled];
+    
+    jenkins_salve -> dingding [label="消息通知" fontsize=8 ];
+    label = "notify";
+    color=blue
+  }
+  
+  
+  gitlab->jenkins_master
+  jenkins_master->gitlab [label="ssh-key 互信" fontsize=8 ]
+  jenkins_salve->gitlab [label="获取代码" fontsize=8 ]
+  jenkins_salve->jenkins_salve [label="编译代码" fontsize=8 ]
+  
+
+  
+}

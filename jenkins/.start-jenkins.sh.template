@@ -1,0 +1,15 @@
+#!/bin/bash
+mkdir -p DOCKER_JENKINS_VOLUME/jenkins_home
+mkdir -p DOCKER_JENKINS_VOLUME/jenkins_backups
+chown -R 1000:1000 DOCKER_JENKINS_VOLUME/jenkins_home
+chown -R 1000:1000 DOCKER_JENKINS_VOLUME/jenkins_backups
+docker run --restart=always -d --name jenkins -p 9090:8080 -p 50000:50000 \
+-v DOCKER_JENKINS_VOLUME/jenkins_home:/var/jenkins_home \
+-v DOCKER_JENKINS_VOLUME/jenkins_backups:/tmp/jenkins_backups \
+-e JAVA_OPTS=-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Shanghai \
+jenkinsci/jenkins:lts
+
+
+# docker run --rm --volumes-from jenkins --name jenkins_backup \
+# -v DOCKER_JENKINS_VOLUME/jenkins_home:/var/jenkins_home \
+# -v DOCKER_JENKINS_VOLUME/jenkins_backups:/var/backups -d jagiles/jenkins-backup
