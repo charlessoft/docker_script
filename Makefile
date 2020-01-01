@@ -26,7 +26,7 @@ jenkins_build:
 	cp -r ./lib ./jenkins
 	mv jenkins jenkins_${TRAVIS_BRANCH}
 	tar zcvf jenkins_script_${TRAVIS_BRANCH}.tar.gz jenkins_${TRAVIS_BRANCH}
-build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build
+build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build
 
 
 ci:
