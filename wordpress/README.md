@@ -36,3 +36,11 @@
 
  # BEGIN WP JWT Auth
 ```
+
+
+## 迁移
+1. 修改host和端口
+```
+update wp_options set option_value='http://101.133.129.216:8080' where option_name ='siteurl' or option_name='home'
+```
+2. 打包wordpress所有文件
