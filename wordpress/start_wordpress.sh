@@ -1,5 +1,6 @@
 #!/bin/bash
 source ./config.sh
+export THEME_NAME=./theme-name
 
 # link
 # docker run --restart=always -d --name ${WORDPRESS_CONTAINER} \
@@ -12,6 +13,11 @@ source ./config.sh
 #     ${WORDPRESS_IMAGE}
 
 
+# 解压theme
+if [ ! -d ./${THEME_NAME}/dux ]
+then
+    tar zxvf  ./${THEME_NAME}/dux.tar.gz  -C ${THEME_NAME}/
+fi
 
 docker run --restart=always -d \
     --name ${WORDPRESS_CONTAINER} \
