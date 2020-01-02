@@ -65,6 +65,7 @@ docker run --restart=always -d \
      -v ${PWD}/wp-app:/var/www/html \
      -v ${PWD}/theme-name/dux/:/var/www/html/wp-content/themes/dux \
      -v ${PWD}/conf/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini \
+     -v ${PWD}/conf/.htaccess:/var/www/html/.htaccess \
      ${WORDPRESS_IMAGE}
 
 check_runsuccess
