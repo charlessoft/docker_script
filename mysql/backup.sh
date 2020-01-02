@@ -9,7 +9,7 @@ _now=$(date +"%m_%d_%Y")
 
 mkdir -p ${BACK_FOLDER}
 # Export dump
-EXPORT_COMMAND="exec mysqldump $BACK_DATABASE_NAME -uroot -p$ROOT_PASSWORD"
+EXPORT_COMMAND="exec mysqldump --databases $BACK_DATABASE_NAME -uroot -p$ROOT_PASSWORD"
 # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
 docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
 

@@ -28,6 +28,6 @@ DOCKER_MYSQL_CONFIG=${MYSQL_ROOT}/conf
 
 # for backup.sh
 # 1. 需要制定导出的备份的数据库名字.
-BACK_DATABSE_NAME=xxxxx
+BACK_DATABASE_NAME=wordpress
 
 # ===== mysql 配置=====#
