@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./wordpress_config.sh
+source ./config.sh
 
 # link
 # docker run --restart=always -d --name ${WORDPRESS_CONTAINER} \

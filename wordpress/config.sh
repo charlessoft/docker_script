@@ -11,6 +11,7 @@ WORDPRESS_CONTAINER=wordpress
 # wordpress 对外服务端口
 WORDPRESS_PORT=8080
 
+# ===== 数据库配置 =====#
 
 # 数据库容器名字, 单机部署做link用
 # SQLDB_CONTAINER=mysql

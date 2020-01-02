@@ -1,3 +1,3 @@
 #!/bin/bash
-source ./wordpress_config.sh
+source ./config.sh
 docker rm -f ${WORDPRESS_CONTAINER}
