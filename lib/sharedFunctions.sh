@@ -140,6 +140,13 @@ function join() { local IFS="${1}"; shift; echo "${*}"; }
 #    fi
 # ------------------------------------------------------
 
+
+function check_runsuccess(){
+	if [ $? -ne 0 ]; then
+		error "执行失败"
+		exit 0
+	fi
+}
 function is_exists() {
   if [[ -e "$1" ]]; then
     return 0
