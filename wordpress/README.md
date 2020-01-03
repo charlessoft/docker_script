@@ -39,8 +39,22 @@
 
 
 ## 迁移
-1. 修改host和端口
+1. 导出数据库
+```
+sh backup.sh
+```
+2. 打包wordpress.sh 脚本
+```
+tar zcvf wordpress_bak.tar.gz **/*
+```
+3. 导入数据库
+```
+sh import.sh xxx
+```
+4. 修改host和端口
 ```
 update wp_options set option_value='http://101.133.129.216:8080' where option_name ='siteurl' or option_name='home'
 ```
-2. 打包wordpress所有文件
+4. wordpress所有文件
+解压
+
