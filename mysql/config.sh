@@ -9,7 +9,7 @@ MYSQL_ROOT=${PWD}
 MYSQLIMAGE=mysql:5.7.23
 
 # 数据库密码
-ROOT_PASSWORD=root
+ROOT_PASSWORD=pa44w0rd!@#$
 
 # 容器名字
 CONTAINER_NAME=mysql
