@@ -8,7 +8,7 @@ SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
 : ${DOCKER_DATA_ROOT:=/opt/docker/data}
 : ${PRIVATE_REGISTRY:=127.0.0.1}
 : ${REGISTRY_PORT:=5000}
-: ${REGISTRY_MIRROR:=http://bfa45d08.m.daocloud.io}
+: ${REGISTRY_MIRROR:https://mytfd7zc.mirror.aliyuncs.com}
 
 if [ "$PRIVATE_REGISTRY" != "" ]; then
     INSECURE_REGISTRY="--insecure-registry $PRIVATE_REGISTRY:$REGISTRY_PORT"
