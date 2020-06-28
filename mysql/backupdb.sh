@@ -4,25 +4,26 @@ _os="`uname`"
 _now=$(date +"%m_%d_%Y")
 
 : ${BACK_FOLDER:=${PWD}/bak}
-: ${BAK_FILE:=${BACK_FOLDER}/${BACK_DATABASE_NAME}_${_now}_bak.sql}
 : ${CONTAINER_NAME:=mysql}
 : ${BACK_DATABASE_NAME=wordpress}
-if [ $# != 1 ]
-then
-    echo "eg: sh backup.sh wordpress"
-    echo "use default config: ${BACK_DATABASE_NAME}"
-else
-    BACK_DATABASE_NAME=$1
-fi
+#if [ $# != 1 ]
+#then
+#    echo "eg: sh backup.sh wordpress"
+#    echo "use default config: ${BACK_DATABASE_NAME}"
+#else
+#    BACK_DATABASE_NAME=$1
+#fi
 
 mkdir -p ${BACK_FOLDER}
 
 for DBNAME in ${BACK_DATABASE_NAME[@]}
 do
-    echo $DBNAME
+    BAK_FILE=${BACK_FOLDER}/${DBNAME}_${_now}_bak.sql
+echo ${BAK_FILE}
+
     # Export dump
     TMP_CONTAINER=epxport_tmpmysq;
-    EXPORT_COMMAND="mysqldump --host ${MYSQL_IP} --databases ${BACK_DATABASE_NAME} -uroot -p$ROOT_PASSWORD"
+    EXPORT_COMMAND="mysqldump --host ${MYSQL_IP} --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
     # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
     #docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
     docker ps -a |grep ${TMP_CONTAINER}
@@ -30,7 +31,7 @@ do
         echo "容器存在${TMP_CONTANER},停止导入数据库,请联系管理员"
         exit 1
     else
-        echo "容器不存在在,开始创建容器${TMP_CONTANER},导入数据"
+        echo "容器不存在在,开始创建容器${TMP_CONTANER},导出数据"
     fi
 
     docker run -it --rm --name ${TMP_CONTAINER} \

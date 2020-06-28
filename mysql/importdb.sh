@@ -3,7 +3,7 @@ source ./config.sh
 
 if [ $# != 1 ]
 then
-    echo "eg: sh import.sh xx/bak_xx.sql"
+    echo "eg: sh import.sh dbname xx/bak_xx.sql"
     exit 1;
 fi
 
