@@ -3,7 +3,7 @@ source ./config.sh
 
 if [ $# != 1 ]
 then
-    echo "eg: sh create_database.sh xxx"
+    echo "eg: sh createdb.sh xxx"
     exit 0
 fi
 database=$1
