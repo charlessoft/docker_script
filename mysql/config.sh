@@ -5,11 +5,14 @@
 # 根路径
 MYSQL_ROOT=${PWD}
 
+# mysql ip
+MYSQL_IP=47.114.144.200
+
 # mysql 镜像
 MYSQLIMAGE=mysql:5.7.23
 
 # 数据库密码
-ROOT_PASSWORD=pa44w0rd!@#$
+ROOT_PASSWORD=pa44w0rd
 
 # 容器名字
 CONTAINER_NAME=mysql
