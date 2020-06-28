@@ -17,16 +17,30 @@ fi
 
 
 
-
-
 mkdir -p ${BACK_FOLDER}
 # Export dump
-EXPORT_COMMAND="exec mysqldump --databases $BACK_DATABASE_NAME -uroot -p$ROOT_PASSWORD"
+TMP_CONTAINER=epxport_tmpmysq;
+EXPORT_COMMAND="mysqldump --host ${MYSQL_IP} --databases ${BACK_DATABASE_NAME} -uroot -p$ROOT_PASSWORD"
 # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
-docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
+#docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
+docker ps -a |grep ${TMP_CONTAINER}
+if [ $? -eq 0 ]; then
+    echo "容器存在${TMP_CONTANER},停止导入数据库,请联系管理员"
+    exit 1
+else
+    echo "容器不存在在,开始创建容器${TMP_CONTANER},导入数据"
+fi
+
+docker run -it --rm --name ${TMP_CONTAINER} \
+${MYSQLIMAGE} /bin/sh -c "$EXPORT_COMMAND" > $BAK_FILE
+
+
 if [ $? == 0  ]
 then
-    echo "dump success"
+    echo "dump success: ${BAK_FILE}"
+else
+echo "dump fail"
+exit 1
 fi
 
 if [[ $_os == "Darwin"* ]] ; then
