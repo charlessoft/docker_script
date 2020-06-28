@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+source ./config.sh
+
+# Download docker
+echo "download: ${DOCKER_PACKAGE_URL}"
+echo "download: ${DOCKER_COMPOSE_URL}"
+wget -N $DOCKER_PACKAGE_URL -O ${DOCKER_PACKAGE}
+wget -N $DOCKER_COMPOSE_URL -O ${DOCKER_COMPOSE}
+if [ $? -eq 0 ]; then
+    echo "download docker files succeed!"
+else
+    echo "download docker files fail!"
+    exit 1
+fi
+
+
 # Running in target host environment.
 SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
 
@@ -8,7 +23,7 @@ SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
 : ${DOCKER_DATA_ROOT:=/opt/docker/data}
 : ${PRIVATE_REGISTRY:=127.0.0.1}
 : ${REGISTRY_PORT:=5000}
-: ${REGISTRY_MIRROR:https://mytfd7zc.mirror.aliyuncs.com}
+: ${REGISTRY_MIRROR:=https://mytfd7zc.mirror.aliyuncs.com}
 
 if [ "$PRIVATE_REGISTRY" != "" ]; then
     INSECURE_REGISTRY="--insecure-registry $PRIVATE_REGISTRY:$REGISTRY_PORT"
@@ -27,9 +42,12 @@ echo "REGISTRY_PORT:" $REGISTRY_PORT
 echo "REGISTRY_MIRROR:" $REGISTRY_MIRROR
 echo
 
-sudo tar zxvf ${SCRIPT_PATH}/${DOCKER_PACKAGE} -C /usr/local/bin/
-sudo tar zxvf ${SCRIPT_PATH}/${DOCKER_COMPOSE_PACKAGE} -C /usr/local/bin/
-sudo ln -sf /usr/local/bin/docker-compose-1.21.2-Linux-x86_64 /usr/local/bin/docker-compose
+sudo tar xvf ${SCRIPT_PATH}/${DOCKER_PACKAGE} --strip-components 1  -C /usr/local/bin/
+# sudo tar xvf ${SCRIPT_PATH}/${DOCKER_COMPOSE_PACKAGE} -C /usr/local/bin/
+# sudo ln -sf /usr/local/bin/docker-compose-1.21.2-Linux-x86_64 /usr/local/bin/docker-compose
+sudo chmod +x docker-compose-Linux-x86_64
+sudo cp docker-compose-Linux-x86_64 /usr/local/bin/
+sudo ln -sf /usr/local/bin/docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
 
 sudo groupadd docker
 #usermode -aG docker $USER
@@ -42,6 +60,7 @@ Description=Dockerd
 Wants=network-online.target
 
 [Service]
+#ExecStart=/usr/local/bin/dockerd ${DOCKER_ACCESS_PORT}
 ExecStart=/usr/local/bin/dockerd ${DOCKER_ACCESS_PORT}
 LimitNOFILE=infinity
 LimitNPROC=infinity
