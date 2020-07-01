@@ -7,6 +7,40 @@ then
     exit 1;
 fi
 
+grep "^log-bin" /etc/my.cnf
+if [ $? -eq 0 ]; then
+    echo "binlog开启状态,先请关闭binlog选项"
+    exit 1
+fi
+
+echo "======="
+echo "mysql ip:" $MYSQL_IP
+echo "mysql user: root"
+echo "mysql password:" ${ROOT_PASSWORD}
+echo "sql: " $1
+echo "======="
+read -p "请确认[y/n]" -n 1 confirm  #输入一个字符的时候就执行
+echo -e '\n'  # 输出换行符
+echo $confirm
+# case $confirm in
+# (N | n)
+#       echo "ok, good bye"
+#       exit 1;;
+# (*)
+#       echo "error choice"
+#       exit 1;;
+# esac
+if [ -z $confirm ]; then
+    echo "请输入y/n";
+    exit 1
+else
+    if [ $confirm != 'y' ]; then
+        exit 1
+    fi
+fi
+
+
+
 fullfile=$1
 #fullname="${fullfile##*/}"
 #dir="${fullfile%/*}"

@@ -51,6 +51,7 @@ echo "备份路径:" ${BAK_FILE}
     COMMAND="mysql --host ${MYSQL_IP} -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
 docker run -it --rm --name tmpmysql \
     ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
+    echo "==================="
 
     if [[ $_os == "Darwin"* ]] ; then
         sed -i '' 1,1d $BAK_FILE
