@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   mongo:
-    image: ${PRIVATE_REGISTRY}/official/mongo:3.0.15
+    image: mongo:3.0.15
     container_name: mongo
     ports:
       - 11081:27017
@@ -18,10 +18,10 @@ services:
     command: "--smallfiles"
 
   mongo-express:
-    image: ${PRIVATE_REGISTRY}/official/mongo-express:0.49
+    image: mongo-express:0.49
     container_name: mongo-express
     ports:
-      - 8081:8081
+      - 8081:8082
     environment:
       ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
 

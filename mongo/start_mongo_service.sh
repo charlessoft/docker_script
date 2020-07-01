@@ -1,4 +1,4 @@
 #!/bin/bash
 source ./config.sh
-echo ${PRIVATE_REGISTRY}
+echo $MONGO_DATA_DIR
 docker-compose up -d
