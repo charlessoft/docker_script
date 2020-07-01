@@ -14,12 +14,13 @@ _now=$(date +"%m_%d_%Y")
 #    BACK_DATABASE_NAME=$1
 #fi
 
+echo "备份时间:"`date "+%Y-%m-%d %H:%M:%S"`
 mkdir -p ${BACK_FOLDER}
 
 for DBNAME in ${BACK_DATABASE_NAME[@]}
 do
     BAK_FILE=${BACK_FOLDER}/${DBNAME}_${_now}_bak.sql
-echo ${BAK_FILE}
+echo "备份路径:" ${BAK_FILE}
 
     # Export dump
     TMP_CONTAINER=epxport_tmpmysq;
@@ -43,8 +44,13 @@ echo ${BAK_FILE}
         echo "dump success: ${BAK_FILE}"
     else
         echo "dump fail"
+        echo "==================="
         exit 1
     fi
+
+    COMMAND="mysql --host ${MYSQL_IP} -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
+docker run -it --rm --name tmpmysql \
+    ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
 
     if [[ $_os == "Darwin"* ]] ; then
         sed -i '' 1,1d $BAK_FILE

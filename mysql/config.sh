@@ -6,7 +6,7 @@
 MYSQL_ROOT=${PWD}
 
 # mysql ip
-MYSQL_IP=47.114.144.200
+MYSQL_IP=172.16.177.96
 
 # mysql 镜像
 MYSQLIMAGE=mysql:5.7.23
@@ -32,8 +32,7 @@ DOCKER_MYSQL_CONFIG=${MYSQL_ROOT}/conf
 # for backup.sh
 # 1. 需要制定导出的备份的数据库名字.
 BACK_DATABASE_NAME=( \
-    wordpress \
-    xxx \
+    saas \
 )
 # 2. 全部导出
 #BACK_DATABASE_NAME=ALL
