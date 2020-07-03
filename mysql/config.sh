@@ -43,4 +43,6 @@ BACK_DATABASE_NAME=( \
 # 1 使用
 USE_DOKER=1
 
+LOG_PATH=${PWD}/logs
+
 # ===== mysql 配置=====#

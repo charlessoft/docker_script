@@ -13,7 +13,7 @@ echo ${CREATE_COMMAND} > ${TMPFILE}
 # docker cp ${TMPFILE} ${CONTAINER_NAME}:/tmp
 COMMAND="mysql -h ${MYSQL_IP} -uroot -p${ROOT_PASSWORD} < ${TMPFILE}"
 echo $COMMAND
-eval $COMMAND
+eval $COMMAND  | tee -a
 if [ $? -eq 0 ]; then
     echo "创建数据库${database}成功:)"
 else
