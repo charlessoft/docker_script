@@ -24,20 +24,25 @@ echo "备份路径:" ${BAK_FILE}
 
     # Export dump
     TMP_CONTAINER=epxport_tmpmysq;
-    EXPORT_COMMAND="mysqldump --host ${MYSQL_IP} --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
+    EXPORT_COMMAND="mysqldump  --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
     # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
     #docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
-    docker ps -a |grep ${TMP_CONTAINER}
-    if [ $? -eq 0 ]; then
-        echo "容器存在${TMP_CONTANER},停止导入数据库,请联系管理员"
-        exit 1
+    echo $EXPORT_COMMAND;
+    if [ "$USE_DOCKER" == "1" ]; then
+        docker ps -a |grep ${TMP_CONTAINER}
+        if [ $? -eq 0 ]; then
+            echo "容器存在${TMP_CONTANER},停止导入数据库,请联系管理员"
+            exit 1
+        else
+            echo "容器不存在在,开始创建容器${TMP_CONTANER},导出数据"
+        fi
+
+        docker run -it --rm --name ${TMP_CONTAINER} \
+            ${MYSQLIMAGE} /bin/sh -c "$EXPORT_COMMAND" > $BAK_FILE
+
     else
-        echo "容器不存在在,开始创建容器${TMP_CONTANER},导出数据"
+        eval $EXPORT_COMMAND > ${BAK_FILE}
     fi
-
-    docker run -it --rm --name ${TMP_CONTAINER} \
-        ${MYSQLIMAGE} /bin/sh -c "$EXPORT_COMMAND" > $BAK_FILE
-
 
     if [ $? == 0  ]
     then
@@ -48,9 +53,15 @@ echo "备份路径:" ${BAK_FILE}
         exit 1
     fi
 
-    COMMAND="mysql --host ${MYSQL_IP} -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
-docker run -it --rm --name tmpmysql \
-    ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
+    COMMAND="mysql -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
+    echo $COMMAND;
+    if [ "$USE_DOCKER" == "1" ]; then
+        docker run -it --rm --name tmpmysql \
+            ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
+    else
+        eval $COMMAND
+
+    fi
     echo "==================="
 
     if [[ $_os == "Darwin"* ]] ; then

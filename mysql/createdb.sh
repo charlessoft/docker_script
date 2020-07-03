@@ -13,6 +13,14 @@ echo ${CREATE_COMMAND} > ${TMPFILE}
 # docker cp ${TMPFILE} ${CONTAINER_NAME}:/tmp
 COMMAND="mysql -h ${MYSQL_IP} -uroot -p${ROOT_PASSWORD} < ${TMPFILE}"
 echo $COMMAND
+eval $COMMAND
+if [ $? -eq 0 ]; then
+    echo "创建数据库${database}成功:)"
+else
+    echo "创建数据库${database}失败:("
+
+fi
+
 # docker exec -it ${CONTAINER_NAME} /bin/bash -c "$COMMAND"
 
-docker run -it --rm --name createdb_tmpmysql -v ${TMPFILE}:/tmp/cmd.txt ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
+# docker run -it --rm --name createdb_tmpmysql -v ${TMPFILE}:/tmp/cmd.txt ${MYSQLIMAGE} /bin/sh -c "$COMMAND"

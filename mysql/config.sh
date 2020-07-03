@@ -6,7 +6,7 @@
 MYSQL_ROOT=${PWD}
 
 # mysql ip
-MYSQL_IP=172.16.177.96
+MYSQL_IP=10.203.27.255
 
 # mysql 镜像
 MYSQLIMAGE=mysql:5.7.23
@@ -36,5 +36,11 @@ BACK_DATABASE_NAME=( \
 )
 # 2. 全部导出
 #BACK_DATABASE_NAME=ALL
+
+
+# 是否使用docker 方式,
+# 0 不使用,使用本地mysql命令
+# 1 使用
+USE_DOKER=1
 
 # ===== mysql 配置=====#
