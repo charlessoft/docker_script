@@ -1,3 +1,6 @@
+docker_build:
+	mv docker docker_${TRAVIS_BRANCH}
+	tar zcvf docker_script_${TRAVIS_BRANCH}.tar.gz docker_${TRAVIS_BRANCH}
 mysql_build:
 	mv mysql mysql_${TRAVIS_BRANCH}
 	tar zcvf mysql_script_${TRAVIS_BRANCH}.tar.gz mysql_${TRAVIS_BRANCH}
@@ -30,7 +33,7 @@ wordpress_build:
 	cp -r ./lib ./wordpress
 	mv wordpress wordpress_${TRAVIS_BRANCH}
 	tar zcvf wordpress_script_${TRAVIS_BRANCH}.tar.gz wordpress_${TRAVIS_BRANCH}
-build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build
+build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build docker_build
 
 
 ci:
