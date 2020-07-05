@@ -4,7 +4,7 @@ _os="`uname`"
 _now=$(date +"%m_%d_%Y")
 LOGFILE=${LOG_PATH}/backupdb.log
 
-: ${BACK_FOLDER:=${PWD}/bak}
+: ${BACK_FOLDER:=${MYSQL_BACKUP_FOLDER}}
 : ${CONTAINER_NAME:=mysql}
 : ${BACK_DATABASE_NAME=wordpress}
 
