@@ -41,7 +41,7 @@ BACK_DATABASE_NAME=( \
 # 是否使用docker 方式,
 # 0 不使用,使用本地mysql命令
 # 1 使用
-USE_DOKER=1
+USE_DOKER=0
 
 LOG_PATH=${PWD}/logs
 
