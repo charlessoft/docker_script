@@ -2,6 +2,10 @@
 . config.sh
 docker run \
     -p 9200:9200 \
-    -v ${PWD}/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+    -v ${ES_DATA}:/usr/share/elasticsearch/data \
+    -v ${ES_CONFIG}:/usr/share/elasticsearch/config \
+    -v ${ES_PLUGINS}:/usr/share/elasticsearch/plugins \
+    -e TAKE_FILE_OWNERSHIP=111 \
     --name ${CONTAINER_NAME} -d ${ESIMAGE}
 
+    # -v ${PWD}/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \

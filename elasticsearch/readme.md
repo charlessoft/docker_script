@@ -5,6 +5,7 @@ docker exec -it myes /bin/bash -c "cd plugins;mkdir analysis;cd analysis;wget -q
 docker restart myes
 
 # 创建中文分词
+```
 curl -X PUT 'localhost:9200/accounts' -d '
 {
   "mappings": {
@@ -29,7 +30,7 @@ curl -X PUT 'localhost:9200/accounts' -d '
     }
   }
 }'
-
+```
 # 备份
 curl localhost:9200/_snapshot/accountsbackup -d '
 {
