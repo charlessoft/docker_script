@@ -9,11 +9,13 @@ LOGFILE=${LOG_PATH}/backupdb.log
 : ${BACK_DATABASE_NAME=wordpress}
 
 echo "备份时间:"`date "+%Y-%m-%d %H:%M:%S"` | tee -a ${LOGFILE}
+bak_date=`date "+%Y-%m-%d"`
 mkdir -p ${BACK_FOLDER}
 
 for DBNAME in ${BACK_DATABASE_NAME[@]}
 do
-    BAK_FILE=${BACK_FOLDER}/${DBNAME}_${_now}_bak.sql
+    mkdir -p ${BACK_FOLDER}/${bak_date}
+    BAK_FILE=${BACK_FOLDER}/${bak_date}/${DBNAME}_${_now}_bak.sql
     echo "备份路径:" ${BAK_FILE} | tee -a ${LOGFILE}
 
     # Export dump
@@ -43,6 +45,7 @@ do
         echo "dump success: ${BAK_FILE}" | tee -a ${LOGFILE}
     else
         echo "dump fail" | tee -a ${LOGFILE}
+	dding "mysql 备份失败,请注意 ${BAK_FILE}"
         echo "===================" | tee -a ${LOGFILE}
         exit 1
     fi

@@ -18,6 +18,18 @@ nginx_build:
 	cp -r ./lib ./nginx
 	mv nginx nginx_${TRAVIS_BRANCH}
 	tar zcvf nginx_script_${TRAVIS_BRANCH}.tar.gz nginx_${TRAVIS_BRANCH}
+zabbix_build:
+	mv zabbix zabbix_${TRAVIS_BRANCH}
+	tar zcvf zabbix_script_${TRAVIS_BRANCH}.tar.gz zabbix_${TRAVIS_BRANCH}
+	
+firewall_build:
+	mv firewallfirewall_${TRAVIS_BRANCH}
+	tar zcvf firewall_script_${TRAVIS_BRANCH}.tar.gz firewall_${TRAVIS_BRANCH}
+
+es_build:
+	mv elasticsearch elasticsearch_${TRAVIS_BRANCH}
+	tar zcvf elasticsearch_script_${TRAVIS_BRANCH}.tar.gz elasticsearch_${TRAVIS_BRANCH}
+
 ci_build:
 	cp -r ./lib ./jenkins
 	cp -r jenkins ./ci
@@ -33,7 +45,10 @@ wordpress_build:
 	cp -r ./lib ./wordpress
 	mv wordpress wordpress_${TRAVIS_BRANCH}
 	tar zcvf wordpress_script_${TRAVIS_BRANCH}.tar.gz wordpress_${TRAVIS_BRANCH}
-build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build docker_build
+build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build docker_build \
+	zabbix_build \
+	firewall_build \
+	es_build
 
 
 ci:
