@@ -23,7 +23,7 @@ zabbix_build:
 	tar zcvf zabbix_script_${TRAVIS_BRANCH}.tar.gz zabbix_${TRAVIS_BRANCH}
 	
 firewall_build:
-	mv firewallfirewall_${TRAVIS_BRANCH}
+	mv firewall firewall_${TRAVIS_BRANCH}
 	tar zcvf firewall_script_${TRAVIS_BRANCH}.tar.gz firewall_${TRAVIS_BRANCH}
 
 es_build:
