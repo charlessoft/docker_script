@@ -1,0 +1,4 @@
+#!/bin/bash
+ELASTICSEARCH_URL=http://xxx
+
+KIBANA_PORT=5601
