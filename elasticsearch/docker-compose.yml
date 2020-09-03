@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   elasticsearch:
-    image: elasticsearch:5.4.3
+    image: elasticsearch:7.3.2
     container_name: elasticsearch
     ports:
       - 9200:9200
