@@ -1,6 +1,6 @@
 #!/bin/bash
 CONTAINER_NAME=myes
-ESIMAGE=elasticsearch:5.4.3
+ESIMAGE=elasticsearch:7.3.2
 
 
 ES_IP=localhost

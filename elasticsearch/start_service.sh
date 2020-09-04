@@ -1,5 +1,5 @@
 #!/bin/bash
-. config.sh
+. ./config.sh
 docker run \
     -p 9200:9200 \
     -v ${ES_DATA}:/usr/share/elasticsearch/data \
