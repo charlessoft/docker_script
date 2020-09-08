@@ -19,7 +19,8 @@ SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
 
 : ${DOCKER_PACKAGE:=docker-18.06.0-ce.tar.gz}
 : ${DOCKER_COMPOSE_PACKAGE:=docker-compose-1.21.2-Linux-x86_64.tar.gz}
-: ${DOCKER_ACCESS_PORT:="-H unix:///var/run/docker.sock -H 0.0.0.0:2375"}
+# : ${DOCKER_ACCESS_PORT:="-H unix:///var/run/docker.sock -H 0.0.0.0:2375"}
+: ${DOCKER_ACCESS_PORT:="-H unix:///var/run/docker.sock "}
 : ${DOCKER_DATA_ROOT:=/opt/docker/data}
 : ${PRIVATE_REGISTRY:=127.0.0.1}
 : ${REGISTRY_PORT:=5000}
