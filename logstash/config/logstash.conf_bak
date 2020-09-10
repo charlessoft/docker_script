@@ -1,0 +1,20 @@
+input 
+{ 
+	tcp {
+		type => "waf" 
+        port => "5044" 
+        codec => "json"
+	} 
+} 
+
+output 
+{ 
+    stdout
+    {
+        codec => rubydebug
+    }
+		elasticsearch 
+		{ 
+			hosts => ["http://34.96.174.126:9200"] 
+		} 
+}
