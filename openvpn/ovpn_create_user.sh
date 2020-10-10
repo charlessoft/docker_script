@@ -26,7 +26,7 @@ do
   cp /root/openvpn/client.conf $OVPN_USER_KEYS_DIR/$user/$user.ovpn # 客户端配置文件
   sed -i 's/admin/'"$user"'/g' $OVPN_USER_KEYS_DIR/$user/$user.ovpn
   #cp /etc/openvpn/server/certs/ta.key $OVPN_USER_KEYS_DIR/$user/ta.key  # auth-tls 文件
-  cp /root/openvpn/easy-rsa/easyrsa3/ta.key $OVPN_USER_KEYS_DIR/$user/ta.key  # auth-tls 文件
+  cp /root/openvpn/softs/easy-rsa/easyrsa3/ta.key $OVPN_USER_KEYS_DIR/$user/ta.key  # auth-tls 文件
   cd $OVPN_USER_KEYS_DIR
   zip -r $user.zip $user
   echo "$OVPN_USER_KEYS_DIR"
