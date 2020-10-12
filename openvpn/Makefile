@@ -1,5 +1,5 @@
 scp:
-	rsync -auvz --progress . root@vpnserver:/root/openvpn
+	rsync -auvz --progress . root@${TESTHOST}:/root/openvpn
 
 getclient:
 	mkdir -p client
