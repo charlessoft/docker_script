@@ -28,6 +28,7 @@ do
   #cp /etc/openvpn/server/certs/ta.key $OVPN_USER_KEYS_DIR/$user/ta.key  # auth-tls 文件
   cp /root/openvpn/softs/easy-rsa/easyrsa3/ta.key $OVPN_USER_KEYS_DIR/$user/ta.key  # auth-tls 文件
   cd $OVPN_USER_KEYS_DIR
+  sh /root/openvpn/mergesingle.sh $user
   zip -r $user.zip $user
   echo "$OVPN_USER_KEYS_DIR"
 done

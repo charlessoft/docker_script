@@ -1,13 +1,27 @@
 #!/bin/bash
-FOLDER=/Users/charles/Downloads/cqtest
+
+if [ $# != 1 ] ; then
+echo "USAGE: $0 user"
+echo " e.g.: $0 user1"
+exit 1;
+fi
+
+user=$1
+FOLDER=/etc/openvpn/client/keys/${user}
+SINGLE_OVPNFILE_FOLDER=/etc/openvpn/client/keys/single/
+SINGLE_OVPN_FILE=${SINGLE_OVPNFILE_FOLDER}/${user}.ovpn
+
 CA=${FOLDER}/ca.crt
-CLINET_KEY=${FOLDER}/cqtest.key
-CLIENT_CERT=${FOLDER}/cqtest.crt
-OVPN_FILE=${FOLDER}/cqtest.ovpn
+CLINET_KEY=${FOLDER}/${user}.key
+CLIENT_CERT=${FOLDER}/${user}.crt
+OVPN_FILE=${FOLDER}/${user}.ovpn
 TA_KEY=${FOLDER}/ta.key
-SINGLE_OVPN_FILE=/tmp/a.single.ovpn
+mkdir -p $SINGLE_OVPNFILE_FOLDER
 
-
+if [ ! -f ${CLINET_KEY} ]; then
+echo "${CLINET_KEY} 文件不存在,请检查"
+exit 1
+fi
 
 
 rm -fr ${SINGLE_OVPN_FILE}
