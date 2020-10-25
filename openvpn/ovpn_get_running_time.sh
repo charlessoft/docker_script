@@ -1,9 +1,7 @@
 #!/bin/bash
 SCRIPT=`basename $0`
 export CURPWD=$(cd `dirname $0`; pwd)
-if [ ! -f "${CURPWD}/pid.txt" ]; then
-    sh ${CURPWD}/ovpn_get_pid.sh > ${CURPWD}/pid.txt
-fi
+sh ${CURPWD}/ovpn_get_pid.sh
 
 pid=`cat $CURPWD/pid.txt`
 if [ $? -eq 0 ]; then
