@@ -16,4 +16,6 @@ do
 #  systemctl restart openvpn@server
 done
 echo "请执行sh ovpn_restart.sh; 重启服务"
+sh ${PWD}/ovpn_stop.sh
+sh ${PWD}/ovpn_start.sh
 exit 0
