@@ -1,7 +1,7 @@
 #!/bin/bash
 source ./config.sh
 _os="`uname`"
-_now=$(date +"%m_%d_%Y")
+_now=$(date +"%m_%d_%Y_%H_%M_%S")
 LOGFILE=${LOG_PATH}/backupdb.log
 
 : ${BACK_FOLDER:=${MYSQL_BACKUP_FOLDER}}
@@ -20,7 +20,7 @@ do
 
     # Export dump
     TMP_CONTAINER=epxport_tmpmysq;
-    EXPORT_COMMAND="mysqldump  --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
+    EXPORT_COMMAND="mysqldump  -h${MYSQL_IP} --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
     # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
     #docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
     echo $EXPORT_COMMAND | tee -a ${LOGFILE}
@@ -33,7 +33,7 @@ do
             echo "容器不存在在,开始创建容器${TMP_CONTANER},导出数据" | tee -a ${LOGFILE}
         fi
 
-        docker run -it --rm --name ${TMP_CONTAINER} \
+        docker run -i --rm --name ${TMP_CONTAINER} \
             ${MYSQLIMAGE} /bin/sh -c "$EXPORT_COMMAND" > $BAK_FILE
 
     else
@@ -50,10 +50,10 @@ do
         exit 1
     fi
 
-    COMMAND="mysql -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
+    COMMAND="mysql -h${MYSQL_IP} -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
     echo $COMMAND | tee -a ${LOGFILE};
     if [ "$USE_DOCKER" == "1" ]; then
-        docker run -it --rm --name tmpmysql \
+        docker run -i --rm --name tmpmysql \
             ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
     else
         eval $COMMAND | tee -a ${LOGFILE}
