@@ -2,7 +2,7 @@
 function stop_name()
 {
 	echo "close $1 pid"
-	pid=`ps -ef|grep $1|grep -v "grep"|grep -v "stopServer"|awk '{print $2}'`
+	pid=`ps -ef|grep $1|grep -v "grep"|grep -v "stopServer" | grep -v "ovpn_del_user" |awk '{print $2}'`
 	if [ x"$pid" != x"" ]
 	then
 		echo "$pid is running...close it!"
@@ -11,3 +11,4 @@ function stop_name()
 }
 
 stop_name 'openvpn'
+exit 0

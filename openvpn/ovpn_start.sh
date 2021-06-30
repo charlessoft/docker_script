@@ -4,4 +4,6 @@ if [ $? -eq 0 ]; then
     echo "openvpn run succeed"
 else
     echo "openvpn run failed"
+
 fi
+	exit 0
