@@ -20,9 +20,10 @@ do
 
     # Export dump
     TMP_CONTAINER=epxport_tmpmysq;
-    EXPORT_COMMAND="mysqldump  -h${MYSQL_IP} --databases ${DBNAME} -uroot -p$ROOT_PASSWORD"
+    #EXPORT_COMMAND="mysqldump -h${MYSQL_IP} --databases ${DBNAME} -uroot -p$ROOT_PASSWORD -x"
+    EXPORT_COMMAND="mysqldump -hmysql --databases ${DBNAME} -uroot -p$ROOT_PASSWORD -x"
     # docker-compose exec db sh -c "$EXPORT_COMMAND" > $BAK_FILE
-    #docker exec -it mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
+    #docker exec -i mysql /bin/bash -c "$EXPORT_COMMAND" > $BAK_FILE
     echo $EXPORT_COMMAND | tee -a ${LOGFILE}
     if [ "$USE_DOCKER" == "1" ]; then
         docker ps -a |grep ${TMP_CONTAINER}
@@ -32,8 +33,9 @@ do
         else
             echo "容器不存在在,开始创建容器${TMP_CONTANER},导出数据" | tee -a ${LOGFILE}
         fi
+	echo "docker run -it --rm --name ${TMP_CONTAINER} --link ${CONTAINER_NAME}:mysql ${MYSQLIMAGE}  /bin/bash -c "
 
-        docker run -i --rm --name ${TMP_CONTAINER} \
+        docker run -i --rm --name ${TMP_CONTAINER} --link ${CONTAINER_NAME}:mysql \
             ${MYSQLIMAGE} /bin/sh -c "$EXPORT_COMMAND" > $BAK_FILE
 
     else
@@ -43,6 +45,7 @@ do
     if [ $? == 0  ]
     then
         echo "dump success: ${BAK_FILE}" | tee -a ${LOGFILE}
+	dding "备份成功: ${BAK_FILE}"
     else
         echo "dump fail" | tee -a ${LOGFILE}
 	dding "mysql 备份失败,请注意 ${BAK_FILE}"
@@ -50,10 +53,10 @@ do
         exit 1
     fi
 
-    COMMAND="mysql -h${MYSQL_IP} -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
+    COMMAND="mysql -hmysql -uroot -p${ROOT_PASSWORD} -e 'SHOW MASTER STATUS' "
     echo $COMMAND | tee -a ${LOGFILE};
     if [ "$USE_DOCKER" == "1" ]; then
-        docker run -i --rm --name tmpmysql \
+        docker run -i --rm --name tmpmysql --link ${CONTAINER_NAME}:mysql \
             ${MYSQLIMAGE} /bin/sh -c "$COMMAND"
     else
         eval $COMMAND | tee -a ${LOGFILE}
