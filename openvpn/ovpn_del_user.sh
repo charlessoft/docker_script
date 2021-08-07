@@ -13,10 +13,19 @@ do
   if [ -d "$OVPN_USER_KEYS_DIR/$user" ]; then
     rm -rf $OVPN_USER_KEYS_DIR/${user}*
   fi
+
+  if [ -f "${OVPN_USER_KEYS_DIR}/single/${user}.ovpn" ]; then
+    rm -rf "${OVPN_USER_KEYS_DIR}/single/${user}.ovpn" 
+  fi
+
+  if [ -f "${OVPN_USER_KEYS_DIR}/single/${user}_bak.ovpn" ]; then
+    rm -rf "${OVPN_USER_KEYS_DIR}/single/${user}_bak.ovpn" 
+  fi
 #  systemctl restart openvpn@server
 done
 echo "请执行sh ovpn_restart.sh; 重启服务"
 cd /root/openvpn
-sh ovpn_stop.sh
+sh ovpn_stop.sh 
 sh ovpn_start.sh
+
 exit 0

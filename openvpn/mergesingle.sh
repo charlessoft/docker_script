@@ -10,6 +10,7 @@ user=$1
 FOLDER=/etc/openvpn/client/keys/${user}
 SINGLE_OVPNFILE_FOLDER=/etc/openvpn/client/keys/single/
 SINGLE_OVPN_FILE=${SINGLE_OVPNFILE_FOLDER}/${user}.ovpn
+SINGLE_OVPN_BAK_FILE=${SINGLE_OVPNFILE_FOLDER}/${user}_bak.ovpn
 
 CA=${FOLDER}/ca.crt
 CLINET_KEY=${FOLDER}/${user}.key
@@ -52,6 +53,7 @@ echo "<tls-auth>" >> ${SINGLE_OVPN_FILE}
 cat ${TA_KEY} >> ${SINGLE_OVPN_FILE}
 echo "</tls-auth>" >> ${SINGLE_OVPN_FILE}
 
+cp ${SINGLE_OVPN_FILE} ${SINGLE_OVPN_BAK_FILE}
 
 # echo `cat ${}`
 
