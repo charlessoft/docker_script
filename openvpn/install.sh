@@ -28,6 +28,7 @@ function install_openvpn()
         ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
         make && make install
     cd ..
+    mkdir ccd
 }
 
 CMD_LIST=( gcc \
@@ -47,7 +48,7 @@ function install_depend()
 			exit 1
 		fi
 	done
-    yum install zip unzip openssl openssl-devel pam-devel -y
+    yum install gcc net-tools zip unzip openssl openssl-devel pam-devel -y
 }
 
 function install_easy_rsa()
