@@ -34,6 +34,13 @@ function install_openvpn()
 CMD_LIST=( gcc \
     )
 
+function install_ntpdate()
+{
+    timedatectl set-timezone Asia/Shanghai
+    yum -y install ntp ntpdate
+    ntpdate cn.pool.ntp.org
+}
+
 function install_depend()
 {
 	for CMD in ${CMD_LIST[@]}
@@ -60,6 +67,7 @@ function install_easy_rsa()
         # ln -sf ${PWD}/EasyRSA-3.0.8 ${PWD}/easy-rsa
 }
 
+install_ntpdate
 install_depend
 install_lzo
 install_openvpn
