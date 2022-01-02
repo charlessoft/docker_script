@@ -30,6 +30,18 @@ es_build:
 	mv elasticsearch elasticsearch_${TRAVIS_BRANCH}
 	tar zcvf elasticsearch_script_${TRAVIS_BRANCH}.tar.gz elasticsearch_${TRAVIS_BRANCH}
 
+logstash_build:
+	mv logstash logstash_${TRAVIS_BRANCH}
+	tar zcvf logstash_script_${TRAVIS_BRANCH}.tar.gz logstash_${TRAVIS_BRANCH}
+
+kibana_build:
+	mv kibana kibana_${TRAVIS_BRANCH}
+	tar zcvf kibana_script_${TRAVIS_BRANCH}.tar.gz h_${TRAVIS_BRANCH}
+
+filebeat_build:
+	mv filebeat filebeat_${TRAVIS_BRANCH}
+	tar zcvf filebeat_script_${TRAVIS_BRANCH}.tar.gz filebeat_${TRAVIS_BRANCH}
+
 ci_build:
 	cp -r ./lib ./jenkins
 	cp -r jenkins ./ci
@@ -48,7 +60,10 @@ wordpress_build:
 build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build docker_build \
 	zabbix_build \
 	firewall_build \
-	es_build
+	es_build \
+	logstash_build \
+	kibana_build \
+	filebeat_build 
 
 
 ci:
