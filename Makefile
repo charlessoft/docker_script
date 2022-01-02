@@ -36,7 +36,7 @@ logstash_build:
 
 kibana_build:
 	mv kibana kibana_${TRAVIS_BRANCH}
-	tar zcvf kibana_script_${TRAVIS_BRANCH}.tar.gz h_${TRAVIS_BRANCH}
+	tar zcvf kibana_script_${TRAVIS_BRANCH}.tar.gz kibana_${TRAVIS_BRANCH}
 
 filebeat_build:
 	mv filebeat filebeat_${TRAVIS_BRANCH}
