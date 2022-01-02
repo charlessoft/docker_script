@@ -1,0 +1,22 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /logs/elog_file.log
+  multiline.pattern: '^A'
+  multiline.negate: true
+  multiline.match: after
+  # 需要收集的日志所在的位置，可使用通配符进行配置
+  #- /data/elk/*.log
+  # - /logs/*/*.log
+
+#日志输出配置(采用 logstash 收集日志，5044为logstash端口)
+# output.logstash:
+#   hosts: ['172.17.0.1:5044']
+#
+# output.file:
+#   path: "/tmp/ret"
+#   filename: "zls_filebeat.txt"
+
+output.logstash:
+  hosts: ["101.230.12.68": 5044]

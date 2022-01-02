@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /logs/ovpn_filter.log
+  multiline.pattern: '^A'
+  multiline.negate: true
+  multiline.match: after
+ 
+output.logstash:
+  hosts: ["logstash:5044"]
+
+processors:
+- drop_fields:
+    fields: ["log","host","input","agent","ecs"]
