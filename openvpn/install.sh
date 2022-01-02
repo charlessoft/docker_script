@@ -28,7 +28,7 @@ function install_openvpn()
         ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
         make && make install
     cd ..
-    mkdir ccd
+    mkdir -p ccd
 }
 
 CMD_LIST=( gcc \
