@@ -70,3 +70,5 @@ ci:
 	curl -v -X POST "http://jenkins:c253a297a64fbf61269ea19b37bdc58c@114.116.83.37:9090/job/docker_script/buildWithParameters/" -d TRAVIS_BRANCH=latest
 push:
 	rsync -auvz --progress  . chenqian@106.14.227.239:/tmp/docker_script
+tag:
+	git tag -d 0.17;  git push origin :refs/tags/0.17;git tag -a 0.17 -m "0.17";git push origin 0.17
