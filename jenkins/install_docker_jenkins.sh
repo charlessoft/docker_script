@@ -29,7 +29,7 @@ else
 fi
 
 
-CMD_LIST=( harborcmd \
+CMD_LIST=( \
     jq \
     git \
     )
@@ -59,11 +59,11 @@ function pull_imaegs(){
     # ${HARBORCMD} pull sameersbn/gitlab:11.3.5 sameersbn/gitlab:11.3.5
     # ${HARBORCMD} pull sameersbn/redis:latest sameersbn/redis:latest
     # ${HARBORCMD} pull sameersbn/postgresql:9.4-23 sameersbn/postgresql:9.4-23
-    harborcmd pull ${JENKINS_FILE} ${JENKINS_FILE}
+    docker pull ${JENKINS_FILE} ${JENKINS_FILE}
     if [ $? -eq 0  ]; then
-        success "harborcmd pull ${JENKINS_FILE} "
+        success "docker pull ${JENKINS_FILE} "
     else
-        error "harborcmd pull ${JENKINS_FILE} "
+        error "docker pull ${JENKINS_FILE} "
     fi
 }
 
