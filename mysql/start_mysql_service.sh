@@ -3,6 +3,7 @@
 #mysql.server start
 source ./config.sh
 docker run -p ${PORT}:3306 \
+    -e TZ=Asia/Shanghai \
     --name ${CONTAINER_NAME} \
     -v ${DOCKER_MYSQL_CONFIG}:/etc/mysql/conf.d \
     -v ${PWD}/mysql/data:/var/lib/mysql \
