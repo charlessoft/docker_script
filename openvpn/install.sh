@@ -56,6 +56,12 @@ function install_depend()
 		fi
 	done
     yum install gcc net-tools zip unzip openssl openssl-devel pam-devel -y
+    if [ $? -eq 0 ]; then
+        echo "succeed"
+    else
+        echo "yum download fail"
+        exit 1
+    fi
 }
 
 function install_easy_rsa()
