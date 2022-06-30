@@ -18,7 +18,7 @@ JENKINS_URL=localhost:9090
 # option
 #JENKINS_FILE=jenkinsci/jenkins:lts
 #JENKINS_FILE=jenkins/jenkins:2.153
-JENKINS_FILE=jenkinsci/jenkins:2.153
+JENKINS_FILE=jenkins/jenkins:latest
 
 DOCKER_CONTAINER_NAME=jenkins
 
