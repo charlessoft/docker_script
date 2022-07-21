@@ -1,5 +1,5 @@
 ## 设置内存
-echo "vm.max_map_count=262144" > /etc/sysctl.conf
+echo "vm.max_map_count=262144" >> /etc/sysctl.conf
 sysctl -p
 
 # 测试分词
