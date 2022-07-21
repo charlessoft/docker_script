@@ -27,7 +27,18 @@ function install_openvpn()
         cd openvpn-2.3.14 && \
         ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
         make && make install
-    cd ..
+    unzip openvpn.zip  && \
+        cd openvpn && \
+        cd src/easylogger && \
+autoheader;aclocal;automake --add-missing;autoconf;./configure;make
+    cd openvpn && \
+        autoheader;aclocal;automake --add-missing;autoconf;
+CPPFLAGS="-DENABLE_PF -DENABLE_DEBUG" ./configure --with-lzo-headers=/usr/local/include
+make
+
+    cd ../..
+
+    mkdir /tmp/openvpn_filter
     mkdir -p ccd
 }
 
@@ -43,19 +54,22 @@ function install_ntpdate()
 
 function install_depend()
 {
-	for CMD in ${CMD_LIST[@]}
-	do
-		which ${CMD} > /dev/null 2>&1
-		if [ $? -eq 0 ]
-		then
-			# success "check ${CMD}"
-			echo "check $CMD ok"
-		else
-			echo "${CMD} no such file"
-			exit 1
-		fi
-	done
-    yum install gcc net-tools zip unzip openssl openssl-devel pam-devel -y
+	# for CMD in ${CMD_LIST[@]}
+	# do
+	# 	which ${CMD} > /dev/null 2>&1
+	# 	if [ $? -eq 0 ]
+	# 	then
+	# 		# success "check ${CMD}"
+	# 		echo "check $CMD ok"
+	# 	else
+	# 		echo "${CMD} no such file"
+	# 		exit 1
+	# 	fi
+	# done
+    yum install gcc net-tools zip unzip openssl openssl-devel pam-devel wget python3 -y
+    yum install libtool perl-Thread-Queue libuuid-devel -y
+    yum install http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm -y
+    yum install automake --nogpgcheck -y
     if [ $? -eq 0 ]; then
         echo "succeed"
     else
@@ -67,6 +81,7 @@ function install_depend()
 function install_easy_rsa()
 {
 
+    cd softs
     mkdir -p ${PWD}/easy-rsa && \
         tar xvf EasyRSA-3.0.8.tgz && \
         mv EasyRSA-3.0.8 easy-rsa/easyrsa3
