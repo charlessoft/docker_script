@@ -23,24 +23,40 @@ function install_lzo()
 function install_openvpn()
 {
     cd softs
-    tar zxvf openvpn-2.3.14.tar.gz && \
-        cd openvpn-2.3.14 && \
-        ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
+    tar zxvf openvpn-2.5.8.tar.gz && \
+        cd openvpn-2.5.8  \
+        && autoheader \
+        && aclocal \
+        && libtoolize --ltdl --copy --force \
+        && automake --add-missing --copy \
+        && autoconf \
+        && ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
         make && make install
-    unzip openvpn.zip  && \
-        cd openvpn && \
-        cd src/easylogger && \
-autoheader;aclocal;automake --add-missing;autoconf;./configure;make
-    cd openvpn && \
-        autoheader;aclocal;automake --add-missing;autoconf;
-CPPFLAGS="-DENABLE_PF -DENABLE_DEBUG" ./configure --with-lzo-headers=/usr/local/include
-make
 
     cd ../..
 
-    mkdir /tmp/openvpn_filter
-    mkdir -p ccd
 }
+# function install_openvpn()
+# {
+#     cd softs
+#     tar zxvf openvpn-2.3.14.tar.gz && \
+#         cd openvpn-2.3.14 && \
+#         ./configure --with-lzo-headers=/usr/local/include --with-lzo-lib=/usr/local/lib &&  \
+#         make && make install
+#     unzip openvpn.zip  && \
+#         cd openvpn && \
+#         cd src/easylogger && \
+# autoheader;aclocal;automake --add-missing;autoconf;./configure;make
+#     cd openvpn && \
+#         autoheader;aclocal;automake --add-missing;autoconf;
+# CPPFLAGS="-DENABLE_PF -DENABLE_DEBUG" ./configure --with-lzo-headers=/usr/local/include
+# make
+
+#     cd ../..
+
+#     mkdir /tmp/openvpn_filter
+#     mkdir -p ccd
+# }
 
 CMD_LIST=( gcc \
     )
@@ -66,6 +82,7 @@ function install_depend()
 	# 		exit 1
 	# 	fi
 	# done
+    yum install libtool-ltdl-devel -y
     yum install gcc net-tools zip unzip openssl openssl-devel pam-devel wget python3 -y
     yum install libtool perl-Thread-Queue libuuid-devel -y
     yum install http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm -y
