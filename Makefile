@@ -61,7 +61,15 @@ openvpn_build:
 	mv openvpn openvpn_${TRAVIS_BRANCH}
 	tar zcvf openvpn_script_${TRAVIS_BRANCH}.tar.gz openvpn_${TRAVIS_BRANCH}
 
-build_tar_gz: ci_build mongo_build redis_build gitlab_build jenkins_build nginx_build mysql_build wordpress_build docker_build \
+build_tar_gz: ci_build \
+	mongo_build \
+	redis_build \
+	gitlab_build \
+	jenkins_build \
+	nginx_build \
+	mysql_build \
+	wordpress_build \
+	docker_build \
 	zabbix_build \
 	firewall_build \
 	es_build \
