@@ -14,7 +14,7 @@ cd softs/easy-rsa/easyrsa3
 
 
 
-./easyrsa build-server-full $SERVER nopass
+EASYRSA_CERT_EXPIRE=36500 ./easyrsa build-server-full $SERVER nopass
 ./easyrsa gen-dh
 /usr/local/sbin/openvpn --genkey --secret ta.key
 
