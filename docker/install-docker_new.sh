@@ -87,7 +87,7 @@ sudo systemctl restart dockerd.service
 mkdir -p /etc/docker && \
 tee /etc/docker/daemon.json <<-EOF
 {
-  "graph": "${DOCKER_DATA_ROOT}",
+  "data-root": "${DOCKER_DATA_ROOT}",
   "insecure-registries": [
     "${PRIVATE_REGISTRY}:${REGISTRY_PORT}"
   ],
