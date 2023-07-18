@@ -60,6 +60,9 @@ wordpress_build:
 openvpn_build:
 	mv openvpn openvpn_${TRAVIS_BRANCH}
 	tar zcvf openvpn_script_${TRAVIS_BRANCH}.tar.gz openvpn_${TRAVIS_BRANCH}
+activemq_build:
+	mv activemq activemq_${TRAVIS_BRANCH}
+	tar zcvf activemq_script_${TRAVIS_BRANCH}.tar.gz activemq_${TRAVIS_BRANCH}
 
 build_tar_gz: ci_build \
 	mongo_build \
@@ -76,7 +79,8 @@ build_tar_gz: ci_build \
 	logstash_build \
 	kibana_build \
 	filebeat_build  \
-	openvpn_build
+	openvpn_build \
+	activemq_build
 
 
 ci:
