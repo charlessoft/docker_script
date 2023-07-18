@@ -1,34 +1,16 @@
-version: '3.2'
+version: '3.8'
 services:
-  mongo:
-    image: mongo:3.0.15
-    container_name: mongo
+  mongodb:
+    image: mongo:6.0
     ports:
-      - 11081:27017
+      - '27017:27017'
     volumes:
-      - ${MONGO_DATA_DIR}:/data/db
-      - ${PWD}/auth.js:/tmp/auth.js
+      - ./mongo_data:/data/db
+    command: mongod --auth
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=root       #初始化管理员用户名和密码
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    tty: true
+volumes:
+  dbdata6:
 
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    command: "--smallfiles"
-
-  mongo-express:
-    image: mongo-express:0.49
-    container_name: mongo-express
-    ports:
-      - 8081:8082
-    environment:
-      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
-
-      # express login user and password
-      ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
-      ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
-
-      # mongodb admin user and password
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
