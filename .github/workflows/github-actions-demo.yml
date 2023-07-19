@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: |
+          cd ${{ github.workspace }}
           make build_tar_gz
       - name: Check out repository code
         uses: actions/checkout@v3
