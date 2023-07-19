@@ -11,6 +11,9 @@ jobs:
       - shell: bash
         run: |
           make build_tar_gz
+        env:
+          TRAVIS_BRANCH: 0.21
+
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
