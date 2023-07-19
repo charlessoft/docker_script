@@ -13,7 +13,8 @@ then
     echo "user is not set!"
     exit 1
 else
-    ls /etc/openvpn/client/keys/$user
+    # ls /etc/openvpn/client/keys/$user
+    ls /root/openvpn/softs/easy-rsa/easyrsa3/pki/private/$user.key
     # ls /tmp/keys/$user
     #echo "/tmp/keys/$user"
 
