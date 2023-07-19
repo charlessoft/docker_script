@@ -14,7 +14,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Upload to release
       - name: Upload tar.gz files
         uses: actions/upload-artifact@v2
         with:
