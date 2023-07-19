@@ -1,0 +1,53 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 
+# on: [push] # 每次提交就编译
+on:
+  push:
+    tags:
+      - '*'  # 只有tag擦编译
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Get the tag name
+        run: echo "TRAVIS_BRANCH=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - shell: bash
+        run: |
+          echo "Latest tag name: $TRAVIS_BRANCH"
+          make build_tar_gz
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      # 创建Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Tar Gz Assets
+        id: uploadRelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for file in $(find . -name "*.tar.gz"); do
+            echo "Uploading $file"
+            asset_name=$(basename $file)
+            curl \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Content-Type: application/gzip" \
+                --data-binary @$file \
+                "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=$(basename $file)"  
+          done
+      - run: echo "job's status is ${{ job.status }}."
+
