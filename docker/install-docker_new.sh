@@ -4,8 +4,8 @@ source ./config.sh
 # Download docker
 echo "download: ${DOCKER_PACKAGE_URL}"
 echo "download: ${DOCKER_COMPOSE_URL}"
-wget -N -c $DOCKER_PACKAGE_URL –no-check-certificate -O ${DOCKER_PACKAGE}
-wget -N -c $DOCKER_COMPOSE_URL –no-check-certificate -O ${DOCKER_COMPOSE}
+wget -N -c $DOCKER_PACKAGE_URL --no-check-certificate -O ${DOCKER_PACKAGE}
+wget -N -c $DOCKER_COMPOSE_URL --no-check-certificate -O ${DOCKER_COMPOSE}
 if [ $? -eq 0 ]; then
     echo "download docker files succeed!"
 else
