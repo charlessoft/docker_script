@@ -42,6 +42,7 @@ docker run --restart=always --name http_static_server \
     -v ${DOCKER_NGINX_VOLUME}:/usr/share/nginx/html:ro  -d  \
     -v ${PWD}/htpasswd:/usr/local/nginx/conf/vhost/htpasswd \
     -p ${PORT}:80 \
+    -e TZ=Asia/Shanghai \
     ${DOCKER_NGINX_FILE}
 
 success "start nginx success"
