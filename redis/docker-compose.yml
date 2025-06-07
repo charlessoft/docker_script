@@ -12,6 +12,8 @@ services:
       placement:
         constraints: [node.role == manager]
     command: redis-server /usr/local/etc/redis/redis.conf
+    environment:
+       - TZ=Asia/Shanghai  # 设置时区
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
